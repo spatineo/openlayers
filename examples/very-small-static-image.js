@@ -80,15 +80,19 @@ function createImageLayer(options, imageExtent) {
   });
 }
 
+const xLeft = 50;
+const xRight = 250;
+const xWidth = 100;
+
 const map = new Map({
   layers: [
     // This works
-    createImageLayer({pixelWidth: 300, pixelHeight: 300}, [50, 200, 150, 300]),
-    createVectorLayer([50, 200, 150, 300]),
+    createImageLayer({pixelWidth: 300, pixelHeight: 300}, [xLeft, 200, xLeft + xWidth, 300]),
+    createVectorLayer([xLeft, 200, xLeft + xWidth, 300]),
 
     // This does not work
-    createImageLayer({pixelWidth: 30, pixelHeight: 30}, [250, 200, 350, 300]),
-    createVectorLayer([250, 200, 350, 300]),
+    createImageLayer({pixelWidth: 30, pixelHeight: 30}, [xRight, 200, xRight + xWidth, 300]),
+    createVectorLayer([xRight, 200, xRight + xWidth, 300]),
   ],
   target: 'map',
   view: new View({
