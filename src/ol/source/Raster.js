@@ -807,16 +807,18 @@ class RasterSource extends ImageSource {
   processSources_() {
     const frameState = this.requestedFrameState_;
     const len = this.layers_.length;
-    const imageDatas = new Array(len);
+    const imageDatas = [];
     for (let i = 0; i < len; ++i) {
       frameState.layerIndex = i;
       frameState.renderTargets = {};
       const imageData = getImageData(this.layers_[i], frameState);
       if (imageData) {
-        imageDatas[i] = imageData;
-      } else {
-        return;
+        imageDatas.push(imageData);
       }
+    }
+
+    if (imageDatas.length === 0) {
+      return;
     }
 
     const data = {};
